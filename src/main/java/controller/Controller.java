@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.DAO;
 import model.JavaBeans;
 
-@WebServlet(urlPatterns = { "/Controller", "/main", "/insert", "/select", "/update"})
+@WebServlet(urlPatterns = { "/Controller", "/main", "/insert", "/select", "/update", "/delete"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -46,6 +46,9 @@ public class Controller extends HttpServlet {
 		} else if (action.equals("/update")){
 			editarContato(request,response);
 			
+		}
+		else if (action.equals("/delete")) {
+			deletarContato(request,response);
 		}
 		else {
 			response.sendRedirect("index.html");
@@ -114,6 +117,22 @@ public class Controller extends HttpServlet {
 		contato.setFone(request.getParameter("fone"));
 		
 		dao.editarContato(contato);
+		response.sendRedirect("main");
+		
+	}
+	
+	//Deletar Contato
+	protected void deletarContato(HttpServletRequest request, HttpServletResponse response) 
+	throws ServletException, IOException{
+		System.out.println(contato.getIdcon());
+		System.out.println(contato.getNome());
+		System.out.println(contato.getFone());
+		System.out.println(contato.getEmail());
+		
+		contato.reset();
+		contato.setIdcon(request.getParameter("idcon"));
+		
+		dao.deletarContato(request.getParameter("idcon"));
 		response.sendRedirect("main");
 		
 	}

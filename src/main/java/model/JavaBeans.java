@@ -45,5 +45,11 @@ public class JavaBeans {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public void reset() {
+		this.idcon = null;
+		this.nome = null;
+		this.fone = null;
+		this.email = null;
+	}
 	
 }

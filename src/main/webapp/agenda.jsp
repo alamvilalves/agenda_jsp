@@ -15,6 +15,7 @@
 <title>Agenda de Contatos</title>
 <link rel="icon" href="imagens/favicon.png">
 <link rel="stylesheet" href="style.css">
+<script src="scripts/validador.js"></script>
 </head>
 <body>
 	<h1>Agenda de Contatos</h1>
@@ -26,7 +27,7 @@
 				<th>Nome</th>
 				<th>Fone</th>
 				<th>Email</th>
-				<th>Opções</th>
+				<th colspan="2">Opções</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -37,6 +38,7 @@
 					<td><%=lista.get(i).getFone()%></td>
 					<td><%= lista.get(i).getEmail()%></td>
 					<td><a href="select?idcon=<%= lista.get(i).getIdcon() %>" class="Botao1">Editar</a></td>
+					<td><a class="Botao1" style="background-color: red;" onclick="excluir(<%= lista.get(i).getIdcon()%>,'<%=lista.get(i).getNome()%>')">Excluir</a></td>
 				</tr>
 			<%} %>
 		</tbody>

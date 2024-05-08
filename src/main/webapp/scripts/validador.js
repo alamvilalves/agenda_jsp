@@ -4,6 +4,7 @@
  function validar() {
  	let nome = frmContato.nome.value
  	let fone = frmContato.fone.value
+ 	let email = frmContato.email.value
  	
  	if (nome == ""){
  		alert("Preencha o campo Nome")
@@ -20,4 +21,12 @@
  	}else {
  		document.forms["frmContato"].submit()
  	}
+ }
+ 
+ function excluir(id,nome){
+	 
+	 if (confirm("Deseja excluir o contato " +id+" - "+nome)){
+		location.href = "delete?idcon=" + id 
+	 }
+	 
  }
