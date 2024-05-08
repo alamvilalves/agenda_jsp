@@ -20,6 +20,7 @@
 <body>
 	<h1>Agenda de Contatos</h1>
 	<a href="novocontato.html" class="Botao1">Novo Contato</a>
+	<a href="report" class= "Botao2">Relatório</a>
 	<table id="tabela">
 		<thead>
 			<tr>
@@ -38,7 +39,7 @@
 					<td><%=lista.get(i).getFone()%></td>
 					<td><%= lista.get(i).getEmail()%></td>
 					<td><a href="select?idcon=<%= lista.get(i).getIdcon() %>" class="Botao1">Editar</a></td>
-					<td><a class="Botao1" style="background-color: red;" onclick="excluir(<%= lista.get(i).getIdcon()%>,'<%=lista.get(i).getNome()%>')">Excluir</a></td>
+					<td><a class="Botao2" onclick="excluir(<%= lista.get(i).getIdcon()%>,'<%=lista.get(i).getNome()%>')">Excluir</a></td>
 				</tr>
 			<%} %>
 		</tbody>

@@ -1,9 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,10 +9,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import model.DAO;
 import model.JavaBeans;
 
-@WebServlet(urlPatterns = { "/Controller", "/main", "/insert", "/select", "/update", "/delete"})
+@WebServlet(urlPatterns = { "/Controller", "/main", "/insert", "/select", "/update", "/delete","/report"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -28,31 +31,26 @@ public class Controller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		// Mapeamento
 		String action = request.getServletPath();
 		System.out.println(action);
 
-		if (action.equals("/main")) {
+		if (action.equals("/main"))
 			contatos(request, response);
-		
-		} else if (action.equals("/insert")) {
+		else if (action.equals("/insert"))
 			novoContato(request, response);
-		
-		} else if (action.equals("/select")) {
+		else if (action.equals("/select"))
 			selecionarContato(request,response);
-			
-		} else if (action.equals("/update")){
+		else if (action.equals("/update"))
 			editarContato(request,response);
-			
-		}
-		else if (action.equals("/delete")) {
+		else if (action.equals("/delete"))
 			deletarContato(request,response);
-		}
-		else {
+		else if (action.equals("/report"))
+			gerarRelatorio(request,response);
+		else 
 			response.sendRedirect("index.html");
-		}
 
 	}
 	
@@ -134,9 +132,30 @@ public class Controller extends HttpServlet {
 		
 		dao.deletarContato(request.getParameter("idcon"));
 		response.sendRedirect("main");
-		
 	}
 	
+	//Gerar Relatório
+	protected void gerarRelatorio(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException{
+		
+		Document documento = new Document();
+		try {
+			//tipo de conteúdo
+			response.setContentType("application/pdf");
+			// Nome do documento
+			response.addHeader("Content-Disposition", "inline; filename=contatos.pdf");
+			//Criar documento
+			PdfWriter.getInstance(documento, response.getOutputStream());
+			// Abrir o documento -> conteúdo
+			documento.open();
+			documento.add(new Paragraph("Lista de contatos:"));
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			documento.close();
+		}
+	}
 	
 
 }
