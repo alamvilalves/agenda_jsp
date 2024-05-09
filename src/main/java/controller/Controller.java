@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import model.DAO;
@@ -149,7 +151,24 @@ public class Controller extends HttpServlet {
 			// Abrir o documento -> conteúdo
 			documento.open();
 			documento.add(new Paragraph("Lista de contatos:"));
-			
+			documento.add(new Paragraph(" "));
+			// criar uma tabela
+			PdfPTable tabela = new PdfPTable(3);
+			//cabecalho
+			PdfPCell col1 = new PdfPCell(new Paragraph("Nome"));
+			PdfPCell col2 = new PdfPCell(new Paragraph("Fone"));
+			PdfPCell col3 = new PdfPCell(new Paragraph("Email"));
+			tabela.addCell(col1);
+			tabela.addCell(col2);
+			tabela.addCell(col3);
+			// popular 
+			ArrayList<JavaBeans> lista = dao.listarContatos();
+			for (int i = 0; i<lista.size();i++) {
+				tabela.addCell(lista.get(i).getNome());
+				tabela.addCell(lista.get(i).getFone());
+				tabela.addCell(lista.get(i).getEmail());
+			}
+			documento.add(tabela);
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
