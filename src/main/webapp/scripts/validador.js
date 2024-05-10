@@ -1,6 +1,4 @@
-/**
- * 
- */
+/* Validar se campos foram preenchidos */
  function validar() {
  	let nome = frmContato.nome.value
  	let fone = frmContato.fone.value
@@ -23,7 +21,10 @@
  	}
  }
  
- function excluir(id,nome){
+ /* Confirmar a exclusão de um contato 
+ *	@param id, nome
+ */
+  function excluir(id,nome){
 	 
 	 if (confirm("Deseja excluir o contato " +id+" - "+nome)){
 		location.href = "delete?idcon=" + id 

@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 public class JavaBeans {
 	private String idcon;
 	private String nome;
@@ -19,6 +17,13 @@ public class JavaBeans {
 		this.nome = nome;
 		this.fone = fone;
 		this.email = email;
+	}
+	
+	public void reset() {
+		this.idcon = null;
+		this.nome = null;
+		this.fone = null;
+		this.email = null;
 	}
 
 	public String getIdcon() {
@@ -44,12 +49,6 @@ public class JavaBeans {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public void reset() {
-		this.idcon = null;
-		this.nome = null;
-		this.fone = null;
-		this.email = null;
 	}
 	
 }

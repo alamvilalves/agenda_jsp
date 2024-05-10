@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class DAO {
-	// Parâmetros de conexão
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	private String url = "jdbc:mysql://127.0.0.1:3306/dbagenda?useTimezone=true&serverTimezone=UTC";
 	private String user = "root";
@@ -25,7 +24,6 @@ public class DAO {
 		}
 	}
 
-	// teste de conexão
 	public void testeConexao() {
 		try {
 			Connection con = conectar();
@@ -36,15 +34,12 @@ public class DAO {
 		}
 	}
 
-	// Inserir
 	public void inserirContato(JavaBeans contato) {
 
 		String create = "INSERT INTO contatos (nome,fone,email) VALUES (?,?,?)";
 		try {
-			// abrir conexão
 			Connection con = conectar();
 
-			// Preparar a query para execução no banco de dados
 			PreparedStatement pst = con.prepareStatement(create);
 			pst.setString(1, contato.getNome());
 			pst.setString(2, contato.getFone());
@@ -58,7 +53,6 @@ public class DAO {
 		}
 	}
 	
-	// Listar Contatos
 	public ArrayList<JavaBeans> listarContatos(){
 		ArrayList<JavaBeans> contatos = new ArrayList<>();
 		String read = "SELECT * FROM contatos ORDER BY nome";
@@ -72,7 +66,6 @@ public class DAO {
 				String fone = rs.getString("fone");
 				String email = rs.getString("email");
 
-				// adiciona objeto JavaBeans em cada caposição da lista chamando o construtor da classe
 				contatos.add(new JavaBeans(idcon, nome, fone, email));
 			}
 			con.close();
@@ -84,7 +77,6 @@ public class DAO {
 		}
 	}
 
-	// Selecionar Contato
 	public void selecionarContato(JavaBeans contato) {
 		
 		String select = "SELECT * FROM contatos WHERE idcon = ?";
