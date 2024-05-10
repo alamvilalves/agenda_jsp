@@ -6,12 +6,29 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DAO.
+ */
 public class DAO {
+	
+	/** The driver. */
 	private String driver = "com.mysql.cj.jdbc.Driver";
+	
+	/** The url. */
 	private String url = "jdbc:mysql://127.0.0.1:3306/dbagenda?useTimezone=true&serverTimezone=UTC";
+	
+	/** The user. */
 	private String user = "root";
+	
+	/** The password. */
 	private String password = "root";
 
+	/**
+	 * Conectar.
+	 *
+	 * @return the connection
+	 */
 	private Connection conectar() {
 		Connection con = null;
 		try {
@@ -24,6 +41,9 @@ public class DAO {
 		}
 	}
 
+	/**
+	 * Teste conexao.
+	 */
 	public void testeConexao() {
 		try {
 			Connection con = conectar();
@@ -34,6 +54,11 @@ public class DAO {
 		}
 	}
 
+	/**
+	 * Inserir contato.
+	 *
+	 * @param contato the contato
+	 */
 	public void inserirContato(JavaBeans contato) {
 
 		String create = "INSERT INTO contatos (nome,fone,email) VALUES (?,?,?)";
@@ -53,6 +78,11 @@ public class DAO {
 		}
 	}
 	
+	/**
+	 * Listar contatos.
+	 *
+	 * @return the array list
+	 */
 	public ArrayList<JavaBeans> listarContatos(){
 		ArrayList<JavaBeans> contatos = new ArrayList<>();
 		String read = "SELECT * FROM contatos ORDER BY nome";
@@ -77,6 +107,11 @@ public class DAO {
 		}
 	}
 
+	/**
+	 * Selecionar contato.
+	 *
+	 * @param contato the contato
+	 */
 	public void selecionarContato(JavaBeans contato) {
 		
 		String select = "SELECT * FROM contatos WHERE idcon = ?";
@@ -101,6 +136,11 @@ public class DAO {
 		
 	}
 	
+	/**
+	 * Editar contato.
+	 *
+	 * @param contato the contato
+	 */
 	public void editarContato(JavaBeans contato) {
 		String update = "UPDATE contatos SET nome = ?, fone = ?, email = ? WHERE idcon = ?";
 		try {
@@ -121,6 +161,11 @@ public class DAO {
 		}
 	}
 	
+	/**
+	 * Deletar contato.
+	 *
+	 * @param idcon the idcon
+	 */
 	public void deletarContato(String idcon) {
 		String deletar = "DELETE FROM contatos WHERE idcon = ?";
 		
